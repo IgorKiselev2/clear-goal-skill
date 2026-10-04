@@ -1,4 +1,19 @@
-# Goal Setting — постановка целей для AI-агента
+---
+name: clear-goal-skill
+description: >-
+  Превращает расплывчатый запрос в чёткую проверяемую цель для AI-агента.
+  Используй, когда пользователь описывает желаемую работу без конкретного объекта,
+  без критерия готовности или смешивает несколько идей в одном сообщении,
+  а также по явным командам /цель и /goalhelp. Выдаёт готовую команду /goal
+  с флагами или markdown-контракт цели. Turns a vague request into a verifiable
+  goal contract for an AI agent (SMART+STRONG, exit-0 done criteria, non-goals).
+license: MIT
+metadata:
+  version: "0.2.0"
+  repository: "https://github.com/IgorKiselev2/clear-goal-skill"
+---
+
+# Clear Goal Skill — постановка целей для AI-агента
 
 ## Назначение
 Помогает пользователю сформулировать цель для AI-агента (через `/goal` или обычный промпт).

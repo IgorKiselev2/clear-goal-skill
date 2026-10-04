@@ -4,7 +4,7 @@
 Создать и опубликовать глобальный навык OpenCode для формулирования целей AI-агентов с проверкой по SMART+STRONG.
 
 ## Результат
-- Навык создан: `~/.config/opencode/skills/goal-setting/SKILL.md`
+- Навык создан: `~/.config/opencode/skills/clear-goal-skill/SKILL.md`
 - Команды добавлены в конфиг: `/цель` (RU), `/goalhelp` (EN/short)
 - Репозиторий создан: `IgorKiselev2/clear-goal-skill`
 - Все обязательные файлы проекта готовы

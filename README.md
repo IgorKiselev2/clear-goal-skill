@@ -33,12 +33,12 @@
    "command": {
      "цель": {
        "description": "Помоги сформулировать цель для AI-агента.",
-       "template": "Загрузи навык goal-setting и следуй его алгоритму полностью. …",
+       "template": "Загрузи навык clear-goal-skill и следуй его алгоритму полностью. …",
        "agent": "build"
      },
      "goalhelp": {
        "description": "Quick goal clarification — short mode.",
-       "template": "Load goal-setting skill. This is SHORT mode. …",
+       "template": "Load clear-goal-skill. This is SHORT mode. …",
        "agent": "build"
      }
    }
