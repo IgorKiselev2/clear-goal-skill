@@ -6,6 +6,7 @@
 
 - Собирает разрозненные идеи → структурирует
 - GAP-анализ по 7 критериям SMART+STRONG
+- Расщепляет составные цели («сделай X и Y») на отдельные проверяемые цели
 - Задаёт вопросы волнами по 2 и только там, где риск ошибки средний или выше
 - К каждому вопросу подкидывает 2–3 готовых варианта по цифрам — можно ответить «1, 5»
 - Выводит готовую команду `/goal` с флагами ИЛИ markdown-контракт
@@ -80,24 +81,33 @@
 ```bash
 # 1. Формулировка (через навык)
 /цель «починить SkillCard билд, синхронизировать wiki»
-
-# 2. Агент выдаёт (с автоопределением):
-/goal fix SkillCard build and sync wiki \
-  --check "npm run build && npm run gen:wiki-llms" \
-  --constraint "only edit components/SkillCard.tsx and wiki/" \
-  --non-goal "test files, other components" \
-  --max-turns 15 \
-  --max-minutes 45
-
-# 3. Вы запускаете → плагин идёт сам
-# 4. Если плагина нет → агент даёт markdown:
-## Цель: Fix SkillCard build
-### Done:
-- `npm run build` exit 0
-### Not touching:
-- test files
-...
 ```
+
+```
+# 2. Навык видит две независимые цели и предлагает порядок (Шаг 2.5):
+Похоже, это две цели: 1) билд SkillCard, 2) синхронизация wiki.
+  1. Последовательно, сначала билд   ← по умолчанию
+  2. Только билд
+  3. Одной целью
+  4. свой вариант
+```
+
+```bash
+# 3. После выбора «1» выдаётся ПЕРВАЯ цель — со своей проверкой:
+/goal fix render error in components/SkillCard.tsx \
+  --check "npm run build" \
+  --constraint "only edit components/SkillCard.tsx" \
+  --non-goal "test files, other components, wiki/" \
+  --max-turns 10 \
+  --max-minutes 30
+
+# 4. Вы запускаете → плагин идёт сам
+# 5. После её завершения — вторая цель:
+/goal sync wiki --check "npm run gen:wiki-llms" --non-goal "components/" --max-turns 8
+```
+
+Цели не склеиваются в `--check "a && b"`: иначе падение второй половины
+неотличимо от несработавшей первой, и агент не знает, что переделывать.
 
 ### Совместимость
 
