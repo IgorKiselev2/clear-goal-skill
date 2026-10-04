@@ -200,7 +200,7 @@ grep -i "goal" ~/.config/opencode/opencode.jsonc
 | Результат проверки | Что выдаём |
 |---|---|
 | Плагин найден (`opencode-goal-plugin`, `@bybrawe/opencode-goal` и т.п.) | **Вариант A** — команда `/goal` с флагами |
-| Плагин не найден | **Вариант B** — markdown-промпт +建议 установить плагин командой |
+| Плагин не найден | **Вариант B** — markdown-контракт + предложение установить плагин |
 
 **Вариант A — для `/goal` (с флагами goal-plugin):**
 ```
@@ -212,7 +212,7 @@ grep -i "goal" ~/.config/opencode/opencode.jsonc
   --max-minutes N
 ```
 
-**Вариант B — обычный промпт (без goal-plugin):**
+**Вариант B — markdown-контракт (без goal-plugin):**
 ```markdown
 ## Цель
 ...
