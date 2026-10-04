@@ -1,0 +1,17 @@
+# Временные файлы: папка сохраняется, содержимое — нет
+temp/*
+!temp/.gitkeep
+
+# Секреты (AGENTS.md: не коммитить личные SSH-ключи или токены)
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# ОС и редакторы
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
