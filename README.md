@@ -103,8 +103,8 @@
 
 | Плагин | Поддерживаемые флаги | Примечание |
 |---|---|---|
-| `opencode-goal-plugin@0.10+` | `--check`, `--constraint`, `--non-goal`, `--max-turns` | Основной |
-| `@bybrawe/opencode-goal@1.x` | `--success`, `--accept`, `--constraint`, `--non-goal`, `--check` | Richer, host-verified |
+| `opencode-goal-plugin` (акт. 0.11.0) | `--check`, `--constraint`, `--non-goal`, `--max-turns` | Основной |
+| `@bybrawe/opencode-goal` (акт. 1.3.46) | `--success`, `--accept`, `--constraint`, `--non-goal`, `--check` | Richer, host-verified |
 
 ## Отличия от аналогов
 
@@ -115,6 +115,10 @@
 | **Clear Goal** | **Skill (planning)** | **Формулирует цель, готовит контракт** |
 
 Этот навык — не конкурент, а дополнение: он подготавливает цель, которую потом выполняет goal-плагин.
+
+> Версии указаны по состоянию на 2026-10-04, проверьте актуальность перед установкой.
+> Плагины OpenCode не ставятся через `npm install` — добавьте пакет с закреплённой
+> версией в массив `plugin` файла `opencode.json`, остальное OpenCode сделает сам.
 
 ## License
 
