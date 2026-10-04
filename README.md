@@ -1,4 +1,6 @@
-# Goal Setting Skill — постановка целей для AI-агента
+# Clear Goal Skill — постановка целей для AI-агента
+
+**Русский** · [English](#english)
 
 Навык OpenCode, который помогает формулировать (а не выполнять) цели для AI-агентов. Превращает хаотичные мысли в чёткую проверяемую цель.
 
@@ -129,6 +131,120 @@
 > Версии указаны по состоянию на 2026-10-04, проверьте актуальность перед установкой.
 > Плагины OpenCode не ставятся через `npm install` — добавьте пакет с закреплённой
 > версией в массив `plugin` файла `opencode.json`, остальное OpenCode сделает сам.
+
+## License
+
+MIT
+
+---
+
+<a name="english"></a>
+
+# Clear Goal Skill — goal setting for AI agents
+
+[Русский](#clear-goal-skill--постановка-целей-для-ai-агента) · **English**
+
+An OpenCode skill that helps you **formulate** goals for AI agents rather than
+execute them. It turns scattered thoughts into a clear, verifiable goal contract.
+
+## What it does
+
+- Collects scattered ideas and structures them
+- Runs a GAP analysis against 7 SMART+STRONG criteria
+- Splits compound goals ("do X and Y") into separate verifiable goals
+- Asks questions **in waves of 2**, and only where the risk of guessing wrong
+  is medium or higher
+- Offers 2–3 ready answer options per question — you can reply with "1, 5"
+- Marks everything it decided for you with `[от модели]`
+- Outputs a ready `/goal` command with flags, or a markdown goal contract
+- Pulls safety rules from your project's `AGENTS.md` automatically
+
+What it does **not** do: execute the work, invent rules that aren't in your
+project, or turn into an endless questionnaire.
+
+## SMART+STRONG — 7 criteria
+
+| # | Criterion | Checks |
+|---|---|---|
+| **S** | Specific | Concrete object, file, module? |
+| **M** | Measurable | Verification command (exit 0)? |
+| **A** | Achievable | Dependencies, env, realistic scope? |
+| **R** | Relevant | Why does it matter? Business value? |
+| **T** | Time-boxed | `--max-turns`, `--max-minutes` limits? |
+| **S** | Strategy/Resources | Env, APIs, access, dependencies? |
+| **T** | No-waste | What NOT to touch (files, modules, branches)? |
+
+## Install
+
+1. Copy the skill into your OpenCode skills directory. The folder name **must**
+   match the `name` in the frontmatter:
+
+   ```bash
+   cp -r clear-goal-skill ~/.config/opencode/skills/clear-goal-skill/
+   ```
+
+2. Optionally add slash commands to `opencode.jsonc`:
+
+   ```jsonc
+   "command": {
+     "цель": {
+       "description": "Help me formulate a goal for an AI agent.",
+       "template": "Load clear-goal-skill and follow its algorithm in full. …",
+       "agent": "build"
+     },
+     "goalhelp": {
+       "description": "Quick goal clarification — short mode.",
+       "template": "Load clear-goal-skill. This is SHORT mode. …",
+       "agent": "build"
+     }
+   }
+   ```
+
+3. Restart OpenCode.
+
+## Commands
+
+| Command | Language | Mode |
+|---|---|---|
+| `/цель` | Russian | Full, detailed interview |
+| `/goalhelp` | Project language | Short, fast, 1–2 questions |
+
+The skill also activates automatically when a request lacks a concrete object
+or a definition of done.
+
+## How it pairs with a goal plugin
+
+This skill is a **planner**, not an executor:
+
+```
+/цель [fragments] → ready /goal command → goal plugin runs it to completion
+```
+
+| Plugin | Version (2026-10-04) | Note |
+|---|---|---|
+| `opencode-goal-plugin` | 0.11.0 | Main |
+| `@bybrawe/opencode-goal` | 1.3.46 | Richer, host-verified |
+
+OpenCode plugins are **not** installed with `npm install` — add the package with
+a pinned version to the `plugin` array in `opencode.json` and OpenCode handles
+the rest:
+
+```jsonc
+"plugin": ["opencode-goal-plugin@0.11.0"]
+```
+
+If no plugin is detected, the skill outputs a markdown goal contract instead,
+which works anywhere.
+
+## Project safety policies
+
+The skill has no hardcoded policies. It reads your project's `AGENTS.md` and
+moves those rules into the goal's `constraints` and `non-goals`. The list inside
+`SKILL.md` is an **example** — replace it with your own.
+
+## Versioning
+
+See [CHANGELOG.md](./CHANGELOG.md). Current version: **0.2.0**.
 
 ## License
 
