@@ -3,6 +3,24 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии — по [SemVer](https://semver.org/lang/ru/).
 
+## [0.2.2] — 2026-10-05
+
+### Added
+- **Строка версии в теле навыка.** Раньше версия была только во frontmatter,
+  а его тело модели не показывается — агент не мог назвать свою версию.
+- **HTTP-каталог OpenCode** (`catalog/`): `index.json` + `clear-goal-skill.md`.
+  Пользователь один раз прописывает URL каталога в массив `skills`
+  конфига, после чего обновления приезжают автоматически — OpenCode
+  обновляет кэш при инкременте поля `version`. Требует OpenCode V2.
+  Имя файла в каталоге именно `clear-goal-skill.md`, а не `SKILL.md`:
+  в V2 корневой `SKILL.md` получает буквальный ID `SKILL`.
+- **GitHub Action `sync-catalog`**: при изменении `SKILL.md` копирует его
+  в каталог и поднимает `version` в `index.json`, чтобы клиенты увидели
+  обновление. Защита от зацикливания — фильтр по путям и `[skip ci]`.
+- **Секция «Обновление» в README** с тремя способами: каталог,
+  одна команда вручную, git clone + junction. Плюс способ проверить
+  установленную версию.
+
 ## [0.2.1] — 2026-10-04
 
 Правки по результатам первого прогона навыка на живом запросе.
@@ -104,6 +122,7 @@
   два формата вывода (команда `/goal` с флагами и markdown-контракт),
   автоподтягивание правил из `AGENTS.md`, документация, MIT-лицензия.
 
+[0.2.2]: https://github.com/IgorKiselev2/clear-goal-skill/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/IgorKiselev2/clear-goal-skill/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/IgorKiselev2/clear-goal-skill/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/IgorKiselev2/clear-goal-skill/releases/tag/v0.1.0

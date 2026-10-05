@@ -49,6 +49,63 @@
    ```
 3. Перезапустите OpenCode.
 
+## Обновление
+
+### Вариант 1 — каталог OpenCode (обновляется сам)
+
+Требуется OpenCode V2. Один раз добавьте источник в `opencode.jsonc`:
+
+```jsonc
+{
+  "skills": ["https://igorkiselev2.github.io/clear-goal-skill/catalog/"]
+}
+```
+
+Дальше ничего делать не нужно: при выходе новой версии OpenCode подтянет её сам.
+Если навык уже стоит локально в `~/.config/opencode/skills/clear-goal-skill/` —
+удалите эту папку, иначе будут сосуществовать две копии (каталожная имеет
+более высокий приоритет и победит, но путаница останется).
+
+### Вариант 2 — одна команда вручную
+
+Работает в любой версии OpenCode. Windows:
+
+```powershell
+$dir = "$env:USERPROFILE\.config\opencode\skills\clear-goal-skill"
+New-Item -ItemType Directory -Force -Path $dir | Out-Null
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/IgorKiselev2/clear-goal-skill/master/SKILL.md" -OutFile "$dir\SKILL.md"
+```
+
+macOS / Linux:
+
+```bash
+dir=~/.config/opencode/skills/clear-goal-skill
+mkdir -p "$dir"
+curl -fsSL https://raw.githubusercontent.com/IgorKiselev2/clear-goal-skill/master/SKILL.md -o "$dir/SKILL.md"
+```
+
+После обновления **перезапустите OpenCode** — навыки читаются при старте.
+
+### Вариант 3 — git clone + junction (для разработки)
+
+Папка навыка становится ссылкой на клон, обновление сводится к `git pull`:
+
+```powershell
+git clone https://github.com/IgorKiselev2/clear-goal-skill C:\dev\clear-goal-skill
+New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\skills\clear-goal-skill" -Target "C:\dev\clear-goal-skill"
+```
+
+### Проверка установленной версии
+
+Спросите у агента «какая версия навыка clear-goal-skill загружена?» — номер
+указан в теле навыка. Либо посмотрите файл:
+
+```powershell
+Select-String -LiteralPath "$env:USERPROFILE\.config\opencode\skills\clear-goal-skill\SKILL.md" -Pattern "Версия навыка"
+```
+
+История изменений — в [CHANGELOG.md](./CHANGELOG.md).
+
 ## Команды
 
 | Команда | Язык | Режим |

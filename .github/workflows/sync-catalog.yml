@@ -1,0 +1,61 @@
+name: Sync catalog
+
+# Держит catalog/ в синхронизации с корневым SKILL.md.
+# OpenCode обновляет кэш навыка только при изменении поля version
+# в index.json, поэтому его нужно инкрементить при каждой правке.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'SKILL.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-catalog
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Скопировать SKILL.md в каталог
+        run: |
+          mkdir -p catalog/clear-goal-skill
+          cp SKILL.md catalog/clear-goal-skill/clear-goal-skill.md
+
+      - name: Поднять version в index.json
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+
+          p = pathlib.Path('catalog/index.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+
+          entry = next(s for s in data['skills'] if s['name'] == 'clear-goal-skill')
+          entry['version'] = str(int(entry['version']) + 1)
+          entry['files'] = ['clear-goal-skill.md']
+
+          p.write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          print('catalog version ->', entry['version'])
+          PY
+
+      - name: Закоммитить, если что-то изменилось
+        run: |
+          if git diff --quiet; then
+            echo "Изменений нет, коммит не нужен"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog
+          git commit -m "chore(catalog): синхронизация с SKILL.md [skip ci]"
+          git push
