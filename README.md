@@ -53,7 +53,19 @@
 
 ### Вариант 1 — каталог OpenCode (обновляется сам)
 
-Требуется OpenCode V2. Один раз добавьте источник в `opencode.jsonc`:
+Форма записи зависит от версии OpenCode — они несовместимы.
+
+**OpenCode 1.x:**
+
+```jsonc
+{
+  "skills": {
+    "urls": ["https://igorkiselev2.github.io/clear-goal-skill/catalog/"]
+  }
+}
+```
+
+**OpenCode 2.x:**
 
 ```jsonc
 {

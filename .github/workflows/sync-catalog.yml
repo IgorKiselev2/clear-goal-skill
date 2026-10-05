@@ -27,6 +27,8 @@ jobs:
       - name: Скопировать SKILL.md в каталог
         run: |
           mkdir -p catalog/clear-goal-skill
+          cp SKILL.md catalog/clear-goal-skill/SKILL.md
+          # второе имя — для OpenCode V2, где корневой SKILL.md получает ID «SKILL»
           cp SKILL.md catalog/clear-goal-skill/clear-goal-skill.md
           # .nojekyll обязателен: иначе GitHub Pages прогонит .md через Jekyll
           # и файл превратится в .html, а каталог получит 404
@@ -42,7 +44,7 @@ jobs:
 
           entry = next(s for s in data['skills'] if s['name'] == 'clear-goal-skill')
           entry['version'] = str(int(entry['version']) + 1)
-          entry['files'] = ['clear-goal-skill.md']
+          entry['files'] = ['SKILL.md']
 
           p.write_text(
               json.dumps(data, ensure_ascii=False, indent=2) + '\n',

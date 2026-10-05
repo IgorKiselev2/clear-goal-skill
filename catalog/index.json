@@ -2,8 +2,8 @@
   "skills": [
     {
       "name": "clear-goal-skill",
-      "version": "1",
-      "files": ["clear-goal-skill.md"]
+      "version": "2",
+      "files": ["SKILL.md"]
     }
   ]
 }
