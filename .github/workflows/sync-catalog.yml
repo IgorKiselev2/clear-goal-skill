@@ -28,6 +28,9 @@ jobs:
         run: |
           mkdir -p catalog/clear-goal-skill
           cp SKILL.md catalog/clear-goal-skill/clear-goal-skill.md
+          # .nojekyll обязателен: иначе GitHub Pages прогонит .md через Jekyll
+          # и файл превратится в .html, а каталог получит 404
+          touch .nojekyll
 
       - name: Поднять version в index.json
         run: |

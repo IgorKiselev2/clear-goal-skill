@@ -57,7 +57,8 @@
 - [x] HTTP-каталог `catalog/` с index.json
 - [x] GitHub Action синхронизации каталога с SKILL.md
 - [x] Секция «Обновление» в README (каталог / однострочник / junction)
-- [] Включить GitHub Pages в Settings репозитория (Deploy from branch: master, root)
+- [x] Включить GitHub Pages в Settings репозитория (Deploy from branch: master, root)
+- [x] Добавить `.nojekyll`: без него Jekyll конвертирует .md в .html и каталог даёт 404
 - [ ] Выяснить версию OpenCode: каталог работает только в V2
 - [ ] Проверить, что каталог реально подхватывается после включения Pages
 
